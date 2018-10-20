@@ -1,23 +1,23 @@
 ---
-title: Practical use of scoped slots with GoogleMaps
+title: スコープ付きスロットを使った Google マップの実用例
 type: cookbook
 order: 14
 ---
 
-## Base Example
+## 基本の例
 
 There are situations when you want the template inside the slot to be able to access data from the child component that is responsible for rendering the slot content. This is particularly useful when you need freedom in creating custom templates that use the child component's data properties. That is a typical use case for scoped slots.
 
 Imagine a component that configures and prepares an external API to be used in another component, but is not tightly coupled with any specific template. Such a component could then be reused in multiple places rendering different templates but using the same base object with specific API.
 
-We'll create a component (`GoogleMapLoader.vue`) that:
-1. Initializes the [Google Maps API](https://developers.google.com/maps/documentation/javascript/reference/)
-2. Creates `google` and `map` objects
-3. Exposes those objects to the parent component in which the `GoogleMapLoader` is used
+まず、次のコンポーネントを作成します。 (`GoogleMapLoader.vue`) :
+1. [Google Maps API](https://developers.google.com/maps/documentation/javascript/reference/) を利用するために設定をします。
+2.  `google` と `map` オブジェクトを作成します。
+3. これらのオブジェクトを `GoogleMapLoader` が使用している親コンポーネントに渡します。
 
-Below is an example of how this can be achieved. We will analyze the code piece-by-piece and see what is actually happening in the next section.
+以下では、これがどのように実行されるかをコードを1つずつ分析して、次のセクションでは実際に何が起こっているかを見ていきます。
 
-Let’s first establish our `GoogleMapLoader.vue` template:
+最初に `GoogleMapLoader.vue` テンプレートを作ってみましょう:
 
 ```html
 <template>
@@ -33,7 +33,7 @@ Let’s first establish our `GoogleMapLoader.vue` template:
 </template>
 ```
 
-Now, our script needs to pass some props to the component which allows us to set the [Google Maps API](https://developers.google.com/maps/documentation/javascript/reference/) and [Map object](https://developers.google.com/maps/documentation/javascript/reference/map#Map):
+さて、このスクリプトは、 [Google Maps API](https://developers.google.com/maps/documentation/javascript/reference/)　と [Map object](https://developers.google.com/maps/documentation/javascript/reference/map#Map) を設定するコンポーネントに props を渡す必要があります:
 
 ```js
 import GoogleMapsApiLoader from "google-maps-api-loader"
@@ -70,17 +70,17 @@ export default {
 }
 ```
 
-This is just part of a working example, you can find the whole example in the Codesandbox below.
+これは一部に過ぎません。以下の Codesandbox で全てのコードを見ることができます。
 
 <iframe src="https://codesandbox.io/embed/1o45zvxk0q" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-## Real-World Example: Creating a Google Map Loader component
+## 実例：Google Map Loaderコンポーネントの作成
 
-### 1. Create a component that initializes our map
+### 1. マップを初期化するコンポーネントを作成する
 
 `GoogleMapLoader.vue`
 
-In the template, we create a container for the map which will be used to mount the [Map](https://developers.google.com/maps/documentation/javascript/reference/map#Map) object extracted from the Google Maps API.
+テンプレートでは、Google Maps API から取り出した Map オブジェクトをマウントするためにマップ用のコンテナを作成します。
 
 ```html
 <template>
